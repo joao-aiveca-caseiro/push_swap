@@ -6,11 +6,26 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 12:44:45 by jaiveca-          #+#    #+#             */
-/*   Updated: 2022/12/15 18:55:42 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2022/12/17 16:11:22 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+/* UTILS */
+
+void	dellast_pswap(t_list *node)
+{
+	if (node)
+	{
+		while (node->next->next)
+			node = node->next;
+		free(node->next);
+		node->next = NULL;
+	}
+}
+
+/* MAIN */
 
 void	swap_pswap(t_list **stack, char c)
 {
@@ -35,6 +50,29 @@ void	push_pswap(t_list **src, t_list **dest, char c)
 	}
 }
 
+void	rotate_pswap(t_list **stack, char c)
+{
+	if (*stack)
+	{
+		ft_lstadd_back(stack, ft_lstnew((*stack)->content));
+		*stack = (*stack)->next;
+		ft_printf("r%c\n", c);
+	}
+}
+
+void	revrotate_pswap(t_list **stack, char c)
+{
+	if (*stack)
+	{
+		ft_lstadd_front(stack, ft_lstnew(ft_lstlast(*stack)->content));
+		dellast_pswap(*stack);
+		ft_printf("r%c\n", c);
+	}
+}
+
+
+
+
 int	main(void)
 {
 	t_list	*stack_a = ft_lstnew((void *) 1);
@@ -48,8 +86,9 @@ int	main(void)
 
 	t_list *stack_b = NULL;
 
-	swap_pswap(&stack_a, 'a');
-	push_pswap(&stack_a, &stack_b, 'a');
+	//swap_pswap(&stack_a, 'a');
+	//push_pswap(&stack_a, &stack_b, 'b');
+	revrotate_pswap(&stack_a, 'a');
 
 	ft_printf("Stack A\n");
 	while (stack_a != NULL)
