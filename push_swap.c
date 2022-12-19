@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 12:44:45 by jaiveca-          #+#    #+#             */
-/*   Updated: 2022/12/17 16:11:22 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2022/12/19 17:44:38 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	dellast_pswap(t_list *node)
 	}
 }
 
-/* MAIN */
+/* INSTRUCTIONS */
 
 void	swap_pswap(t_list **stack, char c)
 {
@@ -69,6 +69,10 @@ void	revrotate_pswap(t_list **stack, char c)
 		ft_printf("r%c\n", c);
 	}
 }
+
+/* ALGORITHMS */
+
+
 
 
 
