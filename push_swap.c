@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 12:44:45 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/01/03 18:07:48 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/01/05 16:56:40 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,52 @@ void	dellast_pswap(t_list *node)
 	}
 }
 
+void	print_stack(t_list **stack)
+{
+	t_list	*temp;
+
+	temp = *stack;
+	while (temp)
+	{
+		ft_printf("%i\n", temp->content);
+		temp = temp->next;
+	}
+}
+
+int	check_if_sorted(t_list **stack)
+{
+	t_list	*temp;
+
+	temp = *stack;
+	while (temp && temp->next)
+	{
+		if (temp->content < temp->next->content)
+			temp = temp->next;
+		else
+			return (0);
+	}
+	return (1);
+}
+
 /* INSTRUCTIONS */
 
-/*
-
-void	swap_pswap(t_list **stack, char c)
+void	swap_pswap(t_list **a, t_list **b, char c)
 {
-	void	*temp;
+	int	temp;
 
-	if (*stack)
+	if (*a && (*a)->next)
 	{
-		temp = (*stack)->content;
-		(*stack)->content = (*stack)->next->content;
-		(*stack)->next->content = temp;
-		ft_printf("s%c\n", c);
+		temp = (*a)->content;
+		(*a)->content = (*a)->next->content;
+		(*a)->next->content = temp;
 	}
+	if (*b && (*b)->next && c == 's')
+	{
+		temp = (*b)->content;
+		(*b)->content = (*b)->next->content;
+		(*b)->next->content = temp;
+	}
+	ft_printf("s%c\n", c);
 }
 
 void	push_pswap(t_list **src, t_list **dest, char c)
@@ -52,26 +83,69 @@ void	push_pswap(t_list **src, t_list **dest, char c)
 	}
 }
 
-void	rotate_pswap(t_list **stack, char c)
+void	rotate_pswap(t_list **a, t_list **b, char c)
 {
-	if (*stack)
+	if (*a)
 	{
-		ft_lstadd_back(stack, ft_lstnew((*stack)->content));
-		*stack = (*stack)->next;
-		ft_printf("r%c\n", c);
+		ft_lstadd_back(a, ft_lstnew((*a)->content));
+		*a = (*a)->next;
 	}
+	if (*b && c == 'r')
+	{
+		ft_lstadd_back(b, ft_lstnew((*b)->content));
+		*b = (*b)->next;
+	}
+	ft_printf("r%c\n", c);
 }
 
-void	revrotate_pswap(t_list **stack, char c)
+void	revrotate_pswap(t_list **a, t_list **b, char c)
 {
-	if (*stack)
+	if (*a)
 	{
-		ft_lstadd_front(stack, ft_lstnew(ft_lstlast(*stack)->content));
-		dellast_pswap(*stack);
-		ft_printf("r%c\n", c);
+		ft_lstadd_front(a, ft_lstnew(ft_lstlast(*a)->content));
+		dellast_pswap(*a);
 	}
+	if (*b && c == 'r')
+	{
+		ft_lstadd_front(b, ft_lstnew(ft_lstlast(*b)->content));
+		dellast_pswap(*b);
+	}
+	ft_printf("rr%c\n", c);
 }
-*/
+
+/* ALGORITHMS */
+
+void sort_2_pswap(t_list **a, t_list **b)
+{
+	swap_pswap(a, b, 'a');
+}
+
+void sort_3_pswap(t_list **a, t_list **b)
+{
+	if ((*a)->content > (*a)->next->content)
+		swap_pswap(a, b, 'a');
+	if ((*a)->next->content > (*a)->next->next->content)
+		swap_pswap(a, b, 'a');
+}
+
+void sort_pswap(t_list **a, t_list **b)
+{
+	int i;
+	t_list	*temp;
+
+	i = 0;
+	temp = *a;
+	while (temp != NULL)
+	{
+		temp = temp->next;
+		i++;
+	}
+	if (i == 2)
+		sort_2_pswap(a, b);
+	else if (i == 3)
+		sort_3_pswap(a, b);
+}
+
 
 /* MAIN STUFF */
 
@@ -92,7 +166,6 @@ int	check_int_pswap(char *str)
 		i++;
 	if (str[i] == '\0')
 		check = 1;
-//	ft_printf("%i\n", check);
 	return (check);
 }
 
@@ -125,22 +198,16 @@ long	atoi_pswap(char *str)
 
 int	check_doubles_pswap(t_list **stack, int curr)
 {
-	while (*stack)
+	t_list	*temp;
+
+	temp = *stack;
+	while (temp != NULL)
 	{
-		if ((*stack)->content == curr)
+		if (temp->content == curr)
 			return (0);
-		*stack = (*stack)->next;
+		temp = temp->next;
 	}
 	return (1);
-}
-
-void print_stack(t_list **a)
-{
-	while (*a != NULL)
-	{
-		ft_printf("%i\n", (*a)->content);
-		*a = (*a)->next;
-	}
 }
 
 int	main(int argc, char **argv)
@@ -148,10 +215,10 @@ int	main(int argc, char **argv)
 	int n;
 	int i;
 	t_list *a;
-//	t_list *b;
+	t_list *b;
 
 	a = NULL;
-//	b = NULL;
+	b = NULL;
 	i = 1;
 	if (argc >= 2)
 	{
@@ -172,44 +239,11 @@ int	main(int argc, char **argv)
 			}
 			i++;
 		}
+		ft_printf("Before\n");
+		print_stack(&a);
+		sort_pswap(&a, &b);
+		ft_printf("After\n");
+		print_stack(&a);
 	}
-	ft_printf("Stack A\n");
-	print_stack(&a);
 	return (0);
 }
-
-/*int	main(void)
-{
-	t_list	*stack_a;
-//	t_list	*teste2 = ft_lstnew(2);
-//	t_list	*teste3 = ft_lstnew(3);
-//	t_list	*teste4 = ft_lstnew(4);
-
-	stack_a = NULL;
-
-	ft_lstadd_back(&stack_a, ft_lstnew(2));
-	ft_lstadd_back(&stack_a, ft_lstnew(3));
-	ft_lstadd_back(&stack_a, ft_lstnew(4));
-
-	t_list *stack_b = NULL;
-
-	//swap_pswap(&stack_a, 'a');
-	//push_pswap(&stack_a, &stack_b, 'b');
-	//revrotate_pswap(&stack_a, 'a');
-
-	ft_printf("Stack A\n");
-	while (stack_a != NULL)
-	{
-		ft_printf("%i\n", stack_a->content);
-		stack_a = stack_a->next;
-	}
-	ft_printf("Stack B\n");
-	while (stack_b != NULL)
-	{
-		ft_printf("%i\n", stack_b->content);
-		stack_b = stack_b->next;
-	}
-
-//	ft_lstiter(stacka, (void *)function);
-//	ft_printf("%i", stacka->content);
-}*/
