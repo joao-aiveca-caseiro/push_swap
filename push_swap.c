@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 12:44:45 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/01/05 16:56:40 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/01/06 18:16:52 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,15 +117,38 @@ void	revrotate_pswap(t_list **a, t_list **b, char c)
 
 void sort_2_pswap(t_list **a, t_list **b)
 {
-	swap_pswap(a, b, 'a');
+	while (check_if_sorted(a) == 0)
+	{
+		swap_pswap(a, b, 'a');
+	}
 }
 
 void sort_3_pswap(t_list **a, t_list **b)
 {
-	if ((*a)->content > (*a)->next->content)
-		swap_pswap(a, b, 'a');
-	if ((*a)->next->content > (*a)->next->next->content)
-		swap_pswap(a, b, 'a');
+	while (check_if_sorted(a) == 0)
+	{
+		if ((*a)->content > (*a)->next->content)
+			swap_pswap(a, b, 'a');
+		if ((*a)->next->content > (*a)->next->next->content)
+			revrotate_pswap(a, b, 'a');
+	}
+}
+
+void sort_small_pswap(t_list **a, t_list **b)
+{
+	while (check_if_sorted(a) == 0)
+	{
+		while (*a)
+		{
+			if ((*a)->next && (*a)->content > (*a)->next->content)
+				swap_pswap(a, b, 'a');
+			push_pswap(a, b, 'b');
+		}
+		while (*b)
+		{
+			push_pswap(b, a, 'a');
+		}
+	}
 }
 
 void sort_pswap(t_list **a, t_list **b)
@@ -144,6 +167,8 @@ void sort_pswap(t_list **a, t_list **b)
 		sort_2_pswap(a, b);
 	else if (i == 3)
 		sort_3_pswap(a, b);
+	else if (i > 3)
+		sort_small_pswap(a, b);
 }
 
 
@@ -239,11 +264,11 @@ int	main(int argc, char **argv)
 			}
 			i++;
 		}
-		ft_printf("Before\n");
-		print_stack(&a);
+//		ft_printf("Before\n");
+//		print_stack(&a);
 		sort_pswap(&a, &b);
-		ft_printf("After\n");
-		print_stack(&a);
+//		ft_printf("After\n");
+//		print_stack(&a);
 	}
 	return (0);
 }
