@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 13:10:58 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/01/05 17:15:48 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/01/08 15:46:52 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
 t_list	*ft_lstnew(int content);
-int		ft_lstsize(t_list *lst);
+int		ft_lstsize(t_list **lst);
 t_list	*ft_lstlast(t_list *lst);
 void	ft_lstadd_front(t_list **lst, t_list *new);
 void	ft_lstadd_back(t_list **lst, t_list *new);

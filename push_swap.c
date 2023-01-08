@@ -6,13 +6,11 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 12:44:45 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/01/06 18:16:52 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/01/08 18:35:39 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-/* UTILS */
 
 void	dellast_pswap(t_list *node)
 {
@@ -23,33 +21,6 @@ void	dellast_pswap(t_list *node)
 		free(node->next);
 		node->next = NULL;
 	}
-}
-
-void	print_stack(t_list **stack)
-{
-	t_list	*temp;
-
-	temp = *stack;
-	while (temp)
-	{
-		ft_printf("%i\n", temp->content);
-		temp = temp->next;
-	}
-}
-
-int	check_if_sorted(t_list **stack)
-{
-	t_list	*temp;
-
-	temp = *stack;
-	while (temp && temp->next)
-	{
-		if (temp->content < temp->next->content)
-			temp = temp->next;
-		else
-			return (0);
-	}
-	return (1);
 }
 
 /* INSTRUCTIONS */
@@ -113,6 +84,65 @@ void	revrotate_pswap(t_list **a, t_list **b, char c)
 	ft_printf("rr%c\n", c);
 }
 
+/* UTILS */
+
+void	print_stack(t_list **stack)
+{
+	t_list	*temp;
+
+	temp = *stack;
+	while (temp)
+	{
+		ft_printf("%i\n", temp->content);
+		temp = temp->next;
+	}
+}
+
+int	check_if_sorted(t_list **stack)
+{
+	t_list	*temp;
+
+	temp = *stack;
+	while (temp && temp->next)
+	{
+		if (temp->content < temp->next->content)
+			temp = temp->next;
+		else
+			return (0);
+	}
+	return (1);
+}
+
+void	min_to_head(t_list **a, t_list **b)
+{	
+	t_list	*temp;
+	int		min;
+	int		i;
+
+	temp = *a;
+	min = temp->content;
+	i = 0;
+	while (temp)
+	{
+		if (temp->content < min)
+			min = temp->content;
+		temp = temp->next;
+	}
+	temp = *a;
+	while (temp->content != min)
+	{
+		i++;
+		temp = temp->next;
+	}
+	while ((*a)->content != min)
+	{
+		if (i < ft_lstsize(a) / 2)
+			rotate_pswap(a, b, 'a');
+		else
+			revrotate_pswap(a, b, 'a');
+	}
+}
+
 /* ALGORITHMS */
 
 void sort_2_pswap(t_list **a, t_list **b)
@@ -127,6 +157,9 @@ void sort_3_pswap(t_list **a, t_list **b)
 {
 	while (check_if_sorted(a) == 0)
 	{
+		if ((*a)->content > (*a)->next->content
+			&& (*a)->content > (*a)->next->next->content)
+			rotate_pswap(a, b, 'a');
 		if ((*a)->content > (*a)->next->content)
 			swap_pswap(a, b, 'a');
 		if ((*a)->next->content > (*a)->next->next->content)
@@ -134,14 +167,32 @@ void sort_3_pswap(t_list **a, t_list **b)
 	}
 }
 
-void sort_small_pswap(t_list **a, t_list **b)
+void sort_upto5_pswap(t_list **a, t_list **b)
 {
-	while (check_if_sorted(a) == 0)
+	if (check_if_sorted(a) == 0)
+	{
+		min_to_head(a, b);
+		push_pswap(a, b, 'b');
+		if (ft_lstsize(a) == 4)
+		{
+			min_to_head(a, b);
+			push_pswap(a, b, 'b');
+		}
+		sort_3_pswap(a, b);
+		while (*b)
+		{
+			push_pswap(b, a, 'a');
+		}
+	}
+}
+
+void	sort_big_pswap(t_list **a, t_list **b)
+{
+	if (check_if_sorted(a) == 0)
 	{
 		while (*a)
 		{
-			if ((*a)->next && (*a)->content > (*a)->next->content)
-				swap_pswap(a, b, 'a');
+			min_to_head(a, b);
 			push_pswap(a, b, 'b');
 		}
 		while (*b)
@@ -153,22 +204,17 @@ void sort_small_pswap(t_list **a, t_list **b)
 
 void sort_pswap(t_list **a, t_list **b)
 {
-	int i;
-	t_list	*temp;
+	int	i;
 
-	i = 0;
-	temp = *a;
-	while (temp != NULL)
-	{
-		temp = temp->next;
-		i++;
-	}
+	i = ft_lstsize(a);
 	if (i == 2)
 		sort_2_pswap(a, b);
 	else if (i == 3)
 		sort_3_pswap(a, b);
-	else if (i > 3)
-		sort_small_pswap(a, b);
+	else if (i <= 5)
+		sort_upto5_pswap(a, b);
+	else if (i > 5)
+		sort_big_pswap(a, b);
 }
 
 
