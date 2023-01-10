@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 12:23:03 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/01/09 19:04:55 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/01/10 16:01:38 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,14 @@
 
 # include "libft/libft.h"
 # include <limits.h>
+
+typedef struct s_mins
+{
+	int				min;
+	int				min2;
+	int				i_min;
+	int				i_min2;
+}				t_mins;
 
 void	sort_pswap(t_list **a, t_list **b);
 int		check_int_pswap(char *str);
@@ -33,5 +41,8 @@ void	print_stack(t_list **stack);
 int		check_if_sorted(t_list **stack);
 int		min_int_node(t_list **a);
 void	min_to_head(t_list **a, t_list **b);
+void	min_pair_index(t_list **a, t_list **b, t_mins *mins);
+void	min_pair_to_head(t_list **a, t_list **b, t_mins *mins);
+int		min2_int_node(t_list **a);
 
 #endif
