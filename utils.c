@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 18:34:58 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/01/11 04:06:56 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/01/11 15:51:46 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void	print_stack(t_list **stack)
 	temp = *stack;
 	while (temp)
 	{
-		printf("%5i", temp->content);
-		printf("    ---");
-		printf("%5i\n", temp->index);
+		printf("%8i", temp->content);
+		printf("       ---");
+		printf("%8i\n", temp->index);
 		temp = temp->next;
 	}
 }

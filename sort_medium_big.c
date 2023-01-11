@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 18:35:04 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/01/11 03:59:53 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/01/11 20:06:41 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,68 @@ void	sort_big_pswap(t_list **a, t_list **b)
 	}
 }*/
 
+int	chunk_int_node(t_list **a, int chunk_top)
+{
+	t_list	*temp;
+	int		pos_top;
+	int		pos_bottom;
+	int		selected_pos;
+
+	temp = *a;
+	pos_top = 0;
+	pos_bottom = ft_lstsize(a);
+	selected_pos = 0;
+	while (temp && (temp->index > chunk_top || temp->index < chunk_top - 10))
+	{
+		pos_top++;
+		temp = temp->next;
+	}
+	while (temp && (temp->index > chunk_top || temp->index < chunk_top - 10))
+	{
+		pos_bottom--;
+		ft_lstadd_front(&temp, ft_lstnew(ft_lstlast(temp)->content, ft_lstlast(temp)->index));
+		dellast_pswap(temp);
+	}
+	ft_printf("chunk_top is %i and chunk_bottom is %i\n", chunk_top, chunk_top - 10);
+	ft_printf("pos_top is %i and pos_bottom is %i\n", pos_top, pos_bottom);
+	ft_printf("list size is %i\n", ft_lstsize(a));
+	if (ft_lstsize(a) - pos_bottom >= 0 && ft_lstsize(a) - pos_bottom < pos_top)
+		selected_pos = pos_bottom;
+	else
+		selected_pos = pos_top;
+	ft_printf("selected_pos is %i\n", selected_pos);
+	return (selected_pos);
+}
+
+void	selected_to_head(t_list **a, t_list **b, int chunk_top)
+{	
+	t_list	*temp;
+	int		i;
+	int		selected_pos;
+	int		selected_index;
+
+	temp = *a;
+	if (ft_lstsize(a) > 1)
+	{
+		selected_pos = chunk_int_node(a, chunk_top);
+		i = 0;
+		while (i < selected_pos - 1)
+		{
+			i++;
+			temp = temp->next;
+		}
+		selected_index = temp->index;
+		ft_printf("selected_index is %i\n", selected_index);
+		while ((*a)->index != selected_index)
+		{
+			if (i < ft_lstsize(a) / 2)
+				rotate_pswap(a, b, 'a');
+			else
+				revrotate_pswap(a, b, 'a');
+		}
+	}
+}
+
 void	arg_indexer(t_list **a)
 {
 	t_list	*temp;
@@ -159,20 +221,57 @@ void	arg_indexer(t_list **a)
 	*a = temp_head;
 }
 
+int	rot_b_before_push(t_list **a, t_list **b)
+{
+	t_list	*temp;
+	int		check;
+
+	temp = *b;
+	check = 0;
+	while (temp)
+	{
+		if ((*a)->index > temp->index)
+			check = 1;
+		temp = temp->next;
+	}
+	return (check);
+}
+
 void	sort_big_pswap(t_list **a, t_list **b)
 {
+	int	init_lstsize;
+	int	i;
+	int	j;
 
+	init_lstsize = ft_lstsize(a);
+	i = 0;
+	j = 1;
 	arg_indexer(a);
-	if (check_if_sorted(a) == 1)
+	ft_printf("Before\n");
+	print_stack(a);
+	if (check_if_sorted(a) == 0)
 	{
 		while (*a)
 		{
-			min_to_head(a, b);
-			push_pswap(a, b, 'b');
+			while ((*a) && i < 10 * j)
+			{
+				/*selected_to_head(a, b, 10 * j);
+				if (rot_b_before_push(a, b) == 1)
+					while ((*a)->index < (*b)->index)
+						rotate_pswap(b, a, 'b');*/
+				push_pswap(a, b, 'b');
+				i++;
+				//print_stack(a);
+			}
+			j++;
 		}
 		while (*b)
 		{
 			push_pswap(b, a, 'a');
+		}
+		while ((*a)->index != 0)
+		{
+			revrotate_pswap(a, b, 'a');
 		}
 	}
 }
