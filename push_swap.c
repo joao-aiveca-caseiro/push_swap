@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 12:44:45 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/01/10 16:18:04 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/01/11 04:07:50 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	main(int argc, char **argv)
 			{
 				n = atoi_pswap(argv[i]);
 				if (n >= INT_MIN && n <= INT_MAX && check_doubles_pswap(&a, n) == 1)
-					ft_lstadd_back(&a, ft_lstnew(n));
+					ft_lstadd_back(&a, ft_lstnew(n, 0));
 				else
 					write (2, "Error\n", 6);
 			}
@@ -56,11 +56,11 @@ int	main(int argc, char **argv)
 			}
 			i++;
 		}
-//		ft_printf("Before\n");
-//		print_stack(&a);
+		ft_printf("Before\n");
+		print_stack(&a);
 		sort_pswap(&a, &b);
-//		ft_printf("After\n");
-//		print_stack(&a);
+		ft_printf("\nAfter\n");
+		print_stack(&a);
 	}
 	return (0);
 }

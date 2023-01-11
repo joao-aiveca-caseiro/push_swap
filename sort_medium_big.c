@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 18:35:04 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/01/10 16:45:57 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/01/11 03:59:53 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 	}
 }*/
 
-int	min2_int_node(t_list **a)
+/*int	min2_int_node(t_list **a)
 {
 	t_list	*temp;
 	int		min;
@@ -131,6 +131,45 @@ void	sort_big_pswap(t_list **a, t_list **b)
 			}
 		}
 		swap_pswap(a, b, 'a');
+		while (*b)
+		{
+			push_pswap(b, a, 'a');
+		}
+	}
+}*/
+
+void	arg_indexer(t_list **a)
+{
+	t_list	*temp;
+	t_list	*temp_head;
+
+	temp = *a;
+	temp_head = *a;
+	while (*a)
+	{
+		while (temp)
+		{
+			if ((*a)->content > temp->content)
+				(*a)->index++;
+			temp = temp->next;
+		}
+		temp = temp_head;
+		*a = (*a)->next;
+	}
+	*a = temp_head;
+}
+
+void	sort_big_pswap(t_list **a, t_list **b)
+{
+
+	arg_indexer(a);
+	if (check_if_sorted(a) == 1)
+	{
+		while (*a)
+		{
+			min_to_head(a, b);
+			push_pswap(a, b, 'b');
+		}
 		while (*b)
 		{
 			push_pswap(b, a, 'a');
