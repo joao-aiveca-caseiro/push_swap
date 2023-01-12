@@ -5,7 +5,7 @@ SRCS	= push_swap.c arg_checking.c\
 OBJS		= ${SRCS:.c=.o}
 NAME		= push_swap
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror -fsanitize=address
 
 .c.o:
 			${CC} ${CFLAGS} -c $< -o ${<:.c=.o}

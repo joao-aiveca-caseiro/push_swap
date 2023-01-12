@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 18:34:58 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/01/11 15:51:46 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/01/12 18:42:44 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,26 @@ void	min_to_head(t_list **a, t_list **b)
 			rotate_pswap(a, b, 'a');
 		else
 			revrotate_pswap(a, b, 'a');
+	}
+}
+
+void	to_top(t_list **a, t_list **b, int selected_index)
+{	
+	t_list	*temp;
+	int		i;
+
+	temp = *b;
+	i = 0;
+	while (temp->index != selected_index)
+	{
+		i++;
+		temp = temp->next;
+	}
+	while ((*b)->index != selected_index)
+	{
+		if (i < ft_lstsize(b) / 2)
+			rotate_pswap(b, a, 'b');
+		else
+			revrotate_pswap(b, a, 'b');
 	}
 }
