@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 18:35:04 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/01/12 19:42:51 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/01/16 00:13:29 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,33 +144,44 @@ int	chunk_int_node(t_list **a, int chunk_top)
 	int		pos_top;
 	int		pos_bottom;
 	int		selected_pos;
+	int		last_in_chunk;
 
 	temp = *a;
 	pos_top = 0;
-	pos_bottom = ft_lstsize(a);
+	pos_bottom = 0;
 	selected_pos = 0;
-	while (temp && (temp->index > chunk_top || temp->index < chunk_top - 10))
+	last_in_chunk = -1;
+//	ft_printf("list size is %i before selecting index\n", ft_lstsize(a));
+	while (temp && (temp->index > chunk_top || temp->index < chunk_top - 9))
 	{
 		pos_top++;
 		temp = temp->next;
 	}
 	temp = *a;
-	ft_lstadd_front(&temp, ft_lstnew(ft_lstlast(temp)->content, ft_lstlast(temp)->index));
-	dellast_pswap(temp);
-	while (temp && (temp->index > chunk_top || temp->index < chunk_top - 10))
+	while (temp)
 	{
-		pos_bottom--;
-		ft_lstadd_front(&temp, ft_lstnew(ft_lstlast(temp)->content, ft_lstlast(temp)->index));
-		dellast_pswap(temp);
+		if (temp->index < chunk_top && temp->index > chunk_top - 9)
+			last_in_chunk = temp->index;
+		temp = temp->next;
 	}
-	ft_printf("chunk_top is %i and chunk_bottom is %i\n", chunk_top, chunk_top - 10);
-	ft_printf("pos_top is %i and pos_bottom is %i\n", pos_top, pos_bottom);
+	temp = *a;
+	if (last_in_chunk != -1)
+	{
+		while (temp->index != last_in_chunk)
+		{
+			pos_bottom++;
+			temp = temp->next;
+		}
+	}
+//	ft_printf("chunk_top is %i and chunk_bottom is %i\n", chunk_top, chunk_top - 9);
+//	ft_printf("pos_top is %i and pos_bottom is %i\n", pos_top, pos_bottom);
 //	ft_printf("list size is %i\n", ft_lstsize(a));
 	if (ft_lstsize(a) - pos_bottom >= 0 && ft_lstsize(a) - pos_bottom < pos_top)
 		selected_pos = pos_bottom;
 	else
 		selected_pos = pos_top;
-	ft_printf("selected_pos is %i\n", selected_pos);
+//	ft_printf("selected_pos is %i\n", selected_pos);
+//	ft_printf("list size is %i after selecting index\n", ft_lstsize(a));
 	return (selected_pos);
 }
 
@@ -192,7 +203,7 @@ void	selected_to_head(t_list **a, t_list **b, int chunk_top)
 			temp = temp->next;
 		}
 		selected_index = temp->index;
-		ft_printf("selected_index is %i\n", selected_index);
+//		ft_printf("selected_index is %i\n", selected_index);
 		while ((*a)->index != selected_index)
 		{
 			if (i < ft_lstsize(a) / 2)
@@ -290,9 +301,9 @@ void	sort_big_pswap(t_list **a, t_list **b)
 	{
 		while (*a)
 		{
-			while ((*a) && i < 10 * j)
+			while ((*a) && i < 10 * j - 1)
 			{
-				selected_to_head(a, b, 10 * j);
+				selected_to_head(a, b, 10 * j - 1);
 				if (ft_lstsize(b) > 1)
 					rot_b_before_push(a, b);
 				push_pswap(a, b, 'b');

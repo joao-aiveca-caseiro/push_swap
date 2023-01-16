@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 12:44:45 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/01/12 18:29:07 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/01/16 00:13:47 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ int	main(int argc, char **argv)
 		sort_pswap(&a, &b);
 //		ft_printf("\nAfter\n");
 //		print_stack(&a);
+//		ft_printf("\nB\n");
+//		print_stack(&b);
 	}
 	return (0);
 }
