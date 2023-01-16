@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 18:35:04 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/01/16 00:13:29 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/01/16 16:55:18 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ void	sort_big_pswap(t_list **a, t_list **b)
 	}
 }*/
 
-int	chunk_int_node(t_list **a, int chunk_top)
+int	chunk_int_node(t_list **a, int chunk_top, int k)
 {
 	t_list	*temp;
 	int		pos_top;
@@ -152,7 +152,7 @@ int	chunk_int_node(t_list **a, int chunk_top)
 	selected_pos = 0;
 	last_in_chunk = -1;
 //	ft_printf("list size is %i before selecting index\n", ft_lstsize(a));
-	while (temp && (temp->index > chunk_top || temp->index < chunk_top - 9))
+	while (temp && (temp->index > chunk_top || temp->index < chunk_top - k + 1))
 	{
 		pos_top++;
 		temp = temp->next;
@@ -160,7 +160,7 @@ int	chunk_int_node(t_list **a, int chunk_top)
 	temp = *a;
 	while (temp)
 	{
-		if (temp->index < chunk_top && temp->index > chunk_top - 9)
+		if (temp->index < chunk_top && temp->index > chunk_top - k + 1)
 			last_in_chunk = temp->index;
 		temp = temp->next;
 	}
@@ -185,7 +185,7 @@ int	chunk_int_node(t_list **a, int chunk_top)
 	return (selected_pos);
 }
 
-void	selected_to_head(t_list **a, t_list **b, int chunk_top)
+void	selected_to_head(t_list **a, t_list **b, int chunk_top, int k)
 {	
 	t_list	*temp;
 	int		i;
@@ -195,7 +195,7 @@ void	selected_to_head(t_list **a, t_list **b, int chunk_top)
 	temp = *a;
 	if (ft_lstsize(a) > 1)
 	{
-		selected_pos = chunk_int_node(a, chunk_top);
+		selected_pos = chunk_int_node(a, chunk_top, k);
 		i = 0;
 		while (i < selected_pos)
 		{
@@ -212,27 +212,6 @@ void	selected_to_head(t_list **a, t_list **b, int chunk_top)
 				revrotate_pswap(a, b, 'a');
 		}
 	}
-}
-
-void	arg_indexer(t_list **a)
-{
-	t_list	*temp;
-	t_list	*temp_head;
-
-	temp = *a;
-	temp_head = *a;
-	while (*a)
-	{
-		while (temp)
-		{
-			if ((*a)->content > temp->content)
-				(*a)->index++;
-			temp = temp->next;
-		}
-		temp = temp_head;
-		*a = (*a)->next;
-	}
-	*a = temp_head;
 }
 
 void	rot_b_before_push(t_list **a, t_list **b)
@@ -291,19 +270,24 @@ void	sort_big_pswap(t_list **a, t_list **b)
 {
 	int	i;
 	int	j;
+	int	k;
 
 	i = 0;
 	j = 1;
 	arg_indexer(a);
 //	ft_printf("Before\n");
 //	print_stack(a);
+	if (ft_lstsize(a) < 200)
+		k = 20;
+	else
+		k = 50;
 	if (check_if_sorted(a) == 0)
 	{
 		while (*a)
 		{
-			while ((*a) && i < 10 * j - 1)
+			while ((*a) && i < k * j)
 			{
-				selected_to_head(a, b, 10 * j - 1);
+				selected_to_head(a, b, k * j - 1, k);
 				if (ft_lstsize(b) > 1)
 					rot_b_before_push(a, b);
 				push_pswap(a, b, 'b');

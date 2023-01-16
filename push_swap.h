@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 12:23:03 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/01/12 17:22:45 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/01/16 16:45:46 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,6 @@ void	min_pair_index(t_list **a, t_list **b, t_mins *mins);
 void	min_pair_to_head(t_list **a, t_list **b, t_mins *mins);
 int		min2_int_node(t_list **a);
 void	to_top(t_list **a, t_list **b, int selected_index);
+void	arg_indexer(t_list **a);
 
 #endif

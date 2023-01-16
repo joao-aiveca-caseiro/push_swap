@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 18:34:58 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/01/12 18:42:44 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/01/16 16:42:00 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,27 @@ void	dellast_pswap(t_list *node)
 		free(node->next);
 		node->next = NULL;
 	}
+}
+
+void	arg_indexer(t_list **a)
+{
+	t_list	*temp;
+	t_list	*temp_head;
+
+	temp = *a;
+	temp_head = *a;
+	while (*a)
+	{
+		while (temp)
+		{
+			if ((*a)->content > temp->content)
+				(*a)->index++;
+			temp = temp->next;
+		}
+		temp = temp_head;
+		*a = (*a)->next;
+	}
+	*a = temp_head;
 }
 
 void	print_stack(t_list **stack)
