@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 12:44:45 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/01/18 04:06:20 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/01/18 18:32:48 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void sort_pswap(t_list **a, t_list **b)
 	else if (i <= 5)
 		sort_upto5_pswap(a, b);
 	else if (i > 5)
+//		sort_big_pswap(a, b);
 		temp_sort_big_pswap(a, b, &instr);
 }
 

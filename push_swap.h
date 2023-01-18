@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 12:23:03 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/01/18 03:58:02 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/01/18 19:47:22 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,9 @@ void	temp_to_top(t_list **a, t_list **b, int selected_index, t_list **instr);
 void	temp_sort_big_pswap(t_list **a, t_list **b, t_list **instr);
 void	temp_selected_to_head(t_list **a, t_list **b, int chunk_top, int k, t_list **instr);
 int		temp_chunk_int_node(t_list **a, int chunk_top, int k);
+void	optimizer_pswap(t_list **a, t_list **b, t_list **instr);
+void	rotate_optimizer_pswap(t_list **a, t_list **b, t_list **instr);
+void	revrotate_optimizer_pswap(t_list **a, t_list **b, t_list **instr);
 
 
 #endif
