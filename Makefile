@@ -1,11 +1,9 @@
 LIBFT		= ./libft/libft.a
-SRCS	= push_swap.c arg_checking.c\
-			instructions.c sort_small.c\
-			sort_medium_big.c utils.c
+SRCS	= push_swap.c arg_checking.c instructions.c sort_small.c temp_instructions.c sort_medium_big.c sort_medium_big_v2.c utils.c
 OBJS		= ${SRCS:.c=.o}
 NAME		= push_swap
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror -fsanitize=address
 
 .c.o:
 			${CC} ${CFLAGS} -c $< -o ${<:.c=.o}

@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 12:23:03 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/01/16 16:45:46 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/01/18 03:58:02 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,17 @@ void	print_stack(t_list **stack);
 int		check_if_sorted(t_list **stack);
 int		min_int_node(t_list **a);
 void	min_to_head(t_list **a, t_list **b);
-void	min_pair_index(t_list **a, t_list **b, t_mins *mins);
-void	min_pair_to_head(t_list **a, t_list **b, t_mins *mins);
-int		min2_int_node(t_list **a);
 void	to_top(t_list **a, t_list **b, int selected_index);
 void	arg_indexer(t_list **a);
+
+void	temp_push_pswap(t_list **src, t_list **dest, char c, t_list **instr);
+void	temp_rotate_pswap(t_list **a, t_list **b, char c, t_list **instr);
+void	temp_revrotate_pswap(t_list **a, t_list **b, char c, t_list **instr);
+void	temp_min_to_head(t_list **a, t_list **b, t_list **instr);
+void	temp_to_top(t_list **a, t_list **b, int selected_index, t_list **instr);
+void	temp_sort_big_pswap(t_list **a, t_list **b, t_list **instr);
+void	temp_selected_to_head(t_list **a, t_list **b, int chunk_top, int k, t_list **instr);
+int		temp_chunk_int_node(t_list **a, int chunk_top, int k);
+
 
 #endif
