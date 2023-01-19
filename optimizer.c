@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 14:31:59 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/01/18 19:54:34 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/01/19 03:33:19 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,10 @@ void	optimizer_pswap(t_list **a, t_list **b, t_list **instr)
 			revrotate_pswap(a, b, 'a');
 //			revrotate_optimizer_pswap(a, b, instr);
 		*instr = (*instr)->next;
-
+//		ft_printf("stack A size is %i\n", ft_lstsize(a));
+//		ft_printf("stack B size is %i\n", ft_lstsize(b));
 	}
+	print_stack(a);
 }
 
 void	rotate_optimizer_pswap(t_list **a, t_list **b, t_list **instr)

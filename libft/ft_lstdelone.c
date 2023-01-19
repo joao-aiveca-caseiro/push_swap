@@ -6,14 +6,22 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 00:36:13 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/01/05 17:16:13 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/01/18 22:34:02 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstdelone(t_list *lst, void (*del)(void *))
+void	ft_lstdelone(t_list *lst, void (*del)(int))
 {
-	del(lst->content);
-	free(lst);
+	if (lst)
+	{
+		if (del)
+		{
+			(*del)(lst->content);
+			(*del)(lst->index);
+		}
+		free(lst);
+		lst = NULL;
+	}
 }
