@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 14:31:59 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/01/19 03:33:19 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/01/19 18:47:11 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,9 @@ void	optimizer_pswap(t_list **a, t_list **b, t_list **instr)
 {
 	while (*instr)
 	{
-		if ((*instr)->content == 1)
+		if ((*instr)->content == 2 && (*instr)->next && (*instr)->next->content == 1)
+			(*instr) = (*instr)->next;
+		else if ((*instr)->content == 1)
 			push_pswap(b, a, 'a');
 		else if ((*instr)->content == 2)
 			push_pswap(a, b, 'b');
@@ -117,16 +119,17 @@ void	optimizer_pswap(t_list **a, t_list **b, t_list **instr)
 		else if ((*instr)->content == 6)
 			revrotate_pswap(b, a, 'b');
 		else if ((*instr)->content == 3)
-			rotate_pswap(a, b, 'a');
-//			rotate_optimizer_pswap(a, b, instr);
+//			rotate_pswap(a, b, 'a');
+			rotate_optimizer_pswap(a, b, instr);
 		else if ((*instr)->content == 5)
-			revrotate_pswap(a, b, 'a');
-//			revrotate_optimizer_pswap(a, b, instr);
+//			revrotate_pswap(a, b, 'a');
+			revrotate_optimizer_pswap(a, b, instr);
 		*instr = (*instr)->next;
 //		ft_printf("stack A size is %i\n", ft_lstsize(a));
 //		ft_printf("stack B size is %i\n", ft_lstsize(b));
 	}
-	print_stack(a);
+//	ft_printf("\n\n\n\nStack A after everything\n");
+//	print_stack(a);
 }
 
 void	rotate_optimizer_pswap(t_list **a, t_list **b, t_list **instr)
@@ -138,12 +141,12 @@ void	rotate_optimizer_pswap(t_list **a, t_list **b, t_list **instr)
 	j = 0;
 	if ((*instr)->content == 3)
 	{
-		while ((*instr)->next->content == 3)
+		while ((*instr)->next && (*instr)->next->content == 3)
 		{
 			*instr = (*instr)->next;
 			i++;
 		}
-		while ((*instr)->next->content == 4)
+		while ((*instr)->next && (*instr)->next->content == 4)
 		{
 			*instr = (*instr)->next;
 			j++;
@@ -179,12 +182,12 @@ void	revrotate_optimizer_pswap(t_list **a, t_list **b, t_list **instr)
 	j = 0;
 	if ((*instr)->content == 5)
 	{
-		while ((*instr)->next->content == 5)
+		while ((*instr)->next && (*instr)->next->content == 5)
 		{
 			*instr = (*instr)->next;
 			i++;
 		}
-		while ((*instr)->next->content == 6)
+		while ((*instr)->next && (*instr)->next->content == 6)
 		{
 			*instr = (*instr)->next;
 			j++;

@@ -6,19 +6,21 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 12:44:45 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/01/19 03:36:36 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/01/19 19:28:38 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void sort_pswap(t_list **a, t_list **b)
+void	sort_pswap(t_list **a, t_list **b, t_list **instr)
 {
 	int		i;
-	t_list	*instr;
+	t_list	*temp_a;
+	t_list	*temp_b;
 
 	i = ft_lstsize(a);
-	instr = NULL;
+	temp_a = lstcpy_pswap(*a);
+	temp_b = NULL;
 	if (i == 2)
 		sort_2_pswap(a, b);
 	else if (i == 3)
@@ -26,8 +28,10 @@ void sort_pswap(t_list **a, t_list **b)
 	else if (i <= 5)
 		sort_upto5_pswap(a, b);
 	else if (i > 5)
-//		sort_big_pswap(a, b);
-		temp_sort_big_pswap(a, b, &instr);
+	{
+		temp_sort_big_pswap(&temp_a, &temp_b, instr);
+		optimizer_pswap(a, b, instr);
+	}
 }
 
 int	main(int argc, char **argv)
@@ -36,9 +40,11 @@ int	main(int argc, char **argv)
 	int i;
 	t_list *a;
 	t_list *b;
+	t_list *instr;
 
 	a = NULL;
 	b = NULL;
+	instr = NULL;
 	i = 1;
 	if (argc >= 2)
 	{
@@ -59,9 +65,9 @@ int	main(int argc, char **argv)
 			}
 			i++;
 		}
-		sort_pswap(&a, &b);
-//		ft_printf("\nAfter\n");
-//		print_stack(&a);
+		sort_pswap(&a, &b, &instr);
+	//	ft_printf("\nAfter\n");
+	//	print_stack(&a);
 	}
 	return (0);
 }

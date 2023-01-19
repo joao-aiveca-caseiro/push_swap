@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 12:23:03 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/01/18 19:47:22 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/01/19 17:24:17 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,7 @@
 # include "libft/libft.h"
 # include <limits.h>
 
-typedef struct s_mins
-{
-	int				min;
-	int				min2;
-	int				i_min;
-	int				i_min2;
-}				t_mins;
-
-void	sort_pswap(t_list **a, t_list **b);
+void	sort_pswap(t_list **a, t_list **b, t_list **instr);
 int		check_int_pswap(char *str);
 long	atoi_pswap(char *str);
 int		check_doubles_pswap(t_list **stack, int curr);
@@ -55,6 +47,8 @@ int		temp_chunk_int_node(t_list **a, int chunk_top, int k);
 void	optimizer_pswap(t_list **a, t_list **b, t_list **instr);
 void	rotate_optimizer_pswap(t_list **a, t_list **b, t_list **instr);
 void	revrotate_optimizer_pswap(t_list **a, t_list **b, t_list **instr);
+void	temp_lstadd_back(t_list **lst, t_list *new);
+t_list	*lstcpy_pswap(t_list *source);
 
 
 #endif

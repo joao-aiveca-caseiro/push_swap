@@ -3051,7 +3051,7 @@ if [ $N -gt $alta ]; then
 	if [ $N -lt $baja ]; then
 		baja=$(($N))
 	fi
-media=$(($media+$N))
+	media=$(($media+$N))
 if [ $N -gt 700 ] || [ $N -eq 700 ]; then
 	echo TEST $cont ARG:"$ARG" >> traces.txt
 fi

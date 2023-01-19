@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 18:34:58 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/01/18 18:16:10 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/01/19 18:59:11 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,27 @@ void	dellast_pswap(t_list *node)
 		free(node->next);
 		node->next = NULL;
 	}
+}
+
+t_list	*lstcpy_pswap(t_list *source)
+{
+	if (source == NULL)
+		return (NULL);
+	t_list *head = malloc(sizeof(t_list));
+	head->content = source->content;
+	head->index = source->index;
+	t_list *node = head;
+	source = source->next;
+	while (source)
+	{
+		node->next = malloc(sizeof(t_list));
+		node = node->next;
+		node->content = source->content;
+		node->index = source->index;
+		source = source->next;
+	}
+	node->next = NULL;
+	return (head);
 }
 
 void	arg_indexer(t_list **a)
@@ -130,5 +151,23 @@ void	to_top(t_list **a, t_list **b, int selected_index)
 			rotate_pswap(b, a, 'b');
 		else
 			revrotate_pswap(b, a, 'b');
+	}
+}
+
+void	temp_lstadd_back(t_list **lst, t_list *new)
+{
+	t_list	*temp;
+
+	if (lst && new)
+	{
+		if (*lst)
+		{
+			temp = *lst;
+			while (temp->next)
+				temp = temp->next;
+			temp->next = new;
+		}
+		else
+			*lst = new;
 	}
 }

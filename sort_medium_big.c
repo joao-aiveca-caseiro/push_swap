@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_medium_big.c                                  :+:      :+:    :+:   */
+/*   sort_medium_big_v2.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 18:35:04 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/01/18 15:41:43 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/01/19 18:43:47 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	chunk_int_node(t_list **a, int chunk_top, int k)
+int	temp_chunk_int_node(t_list **temp_a, int chunk_top, int k)
 {
 	t_list	*temp;
 	int		pos_top;
@@ -20,7 +20,7 @@ int	chunk_int_node(t_list **a, int chunk_top, int k)
 	int		selected_pos;
 	int		last_in_chunk;
 
-	temp = *a;
+	temp = *temp_a;
 	pos_top = 0;
 	pos_bottom = 0;
 	selected_pos = 0;
@@ -30,14 +30,14 @@ int	chunk_int_node(t_list **a, int chunk_top, int k)
 		pos_top++;
 		temp = temp->next;
 	}
-	temp = *a;
+	temp = *temp_a;
 	while (temp)
 	{
 		if (temp->index < chunk_top && temp->index > chunk_top - k + 1)
 			last_in_chunk = temp->index;
 		temp = temp->next;
 	}
-	temp = *a;
+	temp = *temp_a;
 	if (last_in_chunk != -1)
 	{
 		while (temp->index != last_in_chunk)
@@ -46,24 +46,24 @@ int	chunk_int_node(t_list **a, int chunk_top, int k)
 			temp = temp->next;
 		}
 	}
-	if (ft_lstsize(a) - pos_bottom >= 0 && ft_lstsize(a) - pos_bottom < pos_top)
+	if (ft_lstsize(temp_a) - pos_bottom >= 0 && ft_lstsize(temp_a) - pos_bottom < pos_top)
 		selected_pos = pos_bottom;
 	else
 		selected_pos = pos_top;
 	return (selected_pos);
 }
 
-void	selected_to_head(t_list **a, t_list **b, int chunk_top, int k)
+void	temp_selected_to_head(t_list **temp_a, t_list **temp_b, int chunk_top, int k, t_list **instr)
 {	
 	t_list	*temp;
 	int		i;
 	int		selected_pos;
 	int		selected_index;
 
-	temp = *a;
-	if (ft_lstsize(a) > 1)
+	temp = *temp_a;
+	if (ft_lstsize(temp_a) > 1)
 	{
-		selected_pos = chunk_int_node(a, chunk_top, k);
+		selected_pos = temp_chunk_int_node(temp_a, chunk_top, k);
 		i = 0;
 		while (i < selected_pos)
 		{
@@ -71,27 +71,27 @@ void	selected_to_head(t_list **a, t_list **b, int chunk_top, int k)
 			temp = temp->next;
 		}
 		selected_index = temp->index;
-		while ((*a)->index != selected_index)
+		while ((*temp_a)->index != selected_index)
 		{
-			if (i < ft_lstsize(a) / 2)
-				rotate_pswap(a, b, 'a');
+			if (i < ft_lstsize(temp_a) / 2)
+				temp_rotate_pswap(temp_a, temp_b, 'a', instr);
 			else
-				revrotate_pswap(a, b, 'a');
+				temp_revrotate_pswap(temp_a, temp_b, 'a', instr);
 		}
 	}
 }
 
-void	rot_b_before_push(t_list **a, t_list **b)
+void	temp_rot_b_before_push(t_list **temp_a, t_list **temp_b, t_list **instr)
 {
 	t_list	*temp;
 	int		check;
 	int		max;
 	int		i;
 
-	temp = *b;
+	temp = *temp_b;
 	check = 1;
 	max = 0;
-	i = (*a)->index;
+	i = (*temp_a)->index;
 	// check if index smaller than all indexes in b
 	while (temp)
 	{
@@ -102,7 +102,7 @@ void	rot_b_before_push(t_list **a, t_list **b)
 		}
 		temp = temp->next;
 	}
-	temp = *b;
+	temp = *temp_b;
 	// if true look for index of the bigger element in b
 	if (check == 1)
 	{
@@ -125,44 +125,46 @@ void	rot_b_before_push(t_list **a, t_list **b)
 				max = temp->index;
 				break ;
 			}
-			temp = *b;
+			temp = *temp_b;
 			i--;
 		}
 	}
-	to_top(a, b, max);
+	temp_to_top(temp_a, temp_b, max, instr);
 }
 
-void	sort_big_pswap(t_list **a, t_list **b)
+void	temp_sort_big_pswap(t_list **temp_a, t_list **temp_b, t_list **instr)
 {
-	int	i;
-	int	j;
-	int	k;
+	int		i;
+	int		j;
+	int		k;
 
 	i = 0;
 	j = 1;
-	arg_indexer(a);
+	arg_indexer(temp_a);
 //	ft_printf("Before\n");
-//	print_stack(a);
-	if (ft_lstsize(a) < 200)
+//	print_stack(temp_a);
+	if (ft_lstsize(temp_a) < 200)
 		k = 20;
 	else
 		k = 40;
-	if (check_if_sorted(a) == 0)
+	if (check_if_sorted(temp_a) == 0)
 	{
-		while (*a)
+		while (*temp_a)
 		{
-			while ((*a) && i < k * j)
+			while (*temp_a && i < k * j)
 			{
-				selected_to_head(a, b, k * j - 1, k);
-				if (ft_lstsize(b) > 1)
-					rot_b_before_push(a, b);
-				push_pswap(a, b, 'b');
+				temp_selected_to_head(temp_a, temp_b, k * j - 1, k, instr);
+				if (ft_lstsize(temp_b) > 1)
+					temp_rot_b_before_push(temp_a, temp_b, instr);
+				temp_push_pswap(temp_a, temp_b, 'b', instr);
 				i++;
 			}
 			j++;
 		}
-		while (*b)
-			push_pswap(b, a, 'a');
-		min_to_head(a, b);
+		while (*temp_b)
+			temp_push_pswap(temp_b, temp_a, 'a', instr);
+		temp_min_to_head(temp_a, temp_b, instr);
 	}
+//	print_stack(instr);
+//	optimizer_pswap(a, b, instr);
 }

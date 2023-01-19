@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 18:35:18 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/01/18 03:53:33 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/01/19 19:10:19 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void	temp_push_pswap(t_list **src, t_list **dest, char c, t_list **instr)
 		*src = (*src)->next;
 	}
 	if (c == 'a')
-		ft_lstadd_back(instr, ft_lstnew(1, 0));
+		temp_lstadd_back(instr, ft_lstnew(1, 0));
 	if (c == 'b')
-		ft_lstadd_back(instr, ft_lstnew(2, 0));
+		temp_lstadd_back(instr, ft_lstnew(2, 0));
 }
 
 void	temp_rotate_pswap(t_list **a, t_list **b, char c, t_list **instr)
@@ -48,27 +48,29 @@ void	temp_rotate_pswap(t_list **a, t_list **b, char c, t_list **instr)
 		*b = (*b)->next;
 	}
 	if (c == 'a')
-		ft_lstadd_back(instr, ft_lstnew(3, 0));
+		temp_lstadd_back(instr, ft_lstnew(3, 0));
 	if (c == 'b')
-		ft_lstadd_back(instr, ft_lstnew(4, 0));
+		temp_lstadd_back(instr, ft_lstnew(4, 0));
 }
 
 void	temp_revrotate_pswap(t_list **a, t_list **b, char c, t_list **instr)
 {
 	if (*a)
 	{
-		ft_lstadd_front(a, ft_lstnew(ft_lstlast(*a)->content, ft_lstlast(*a)->index));
+		ft_lstadd_front(a, \
+		ft_lstnew(ft_lstlast(*a)->content, ft_lstlast(*a)->index));
 		dellast_pswap(*a);
 	}
 	if (*b && c == 'r')
 	{
-		ft_lstadd_front(b, ft_lstnew(ft_lstlast(*b)->content, ft_lstlast(*b)->index));
+		ft_lstadd_front(b, \
+		ft_lstnew(ft_lstlast(*b)->content, ft_lstlast(*b)->index));
 		dellast_pswap(*b);
 	}
 	if (c == 'a')
-		ft_lstadd_back(instr, ft_lstnew(5, 0));
+		temp_lstadd_back(instr, ft_lstnew(5, 0));
 	if (c == 'b')
-		ft_lstadd_back(instr, ft_lstnew(6, 0));
+		temp_lstadd_back(instr, ft_lstnew(6, 0));
 }
 
 void	temp_min_to_head(t_list **a, t_list **b, t_list **instr)
