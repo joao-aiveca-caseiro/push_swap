@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 12:44:45 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/01/19 19:28:38 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/01/21 05:26:36 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,19 @@ void	sort_pswap(t_list **a, t_list **b, t_list **instr)
 		temp_sort_big_pswap(&temp_a, &temp_b, instr);
 		optimizer_pswap(a, b, instr);
 	}
+	ft_lstclear(a);
+	ft_lstclear(b);
+	temp_lstclear_pswap(temp_a);
+	temp_lstclear_pswap(temp_b);
 }
 
 int	main(int argc, char **argv)
 {
-	int n;
-	int i;
-	t_list *a;
-	t_list *b;
-	t_list *instr;
+	int		n;
+	int		i;
+	t_list	*a;
+	t_list	*b;
+	t_list	*instr;
 
 	a = NULL;
 	b = NULL;
@@ -66,8 +70,6 @@ int	main(int argc, char **argv)
 			i++;
 		}
 		sort_pswap(&a, &b, &instr);
-	//	ft_printf("\nAfter\n");
-	//	print_stack(&a);
 	}
 	return (0);
 }

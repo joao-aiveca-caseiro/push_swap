@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 18:34:58 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/01/19 18:59:11 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/01/21 05:18:46 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,16 @@ void	dellast_pswap(t_list *node)
 
 t_list	*lstcpy_pswap(t_list *source)
 {
+	t_list	*head;
+	t_list	*node;
+
 	if (source == NULL)
 		return (NULL);
-	t_list *head = malloc(sizeof(t_list));
+	head = malloc(sizeof(t_list));
 	head->content = source->content;
 	head->index = source->index;
-	t_list *node = head;
 	source = source->next;
+	node = head;
 	while (source)
 	{
 		node->next = malloc(sizeof(t_list));
@@ -154,20 +157,13 @@ void	to_top(t_list **a, t_list **b, int selected_index)
 	}
 }
 
-void	temp_lstadd_back(t_list **lst, t_list *new)
+void temp_lstclear_pswap(t_list *head)
 {
-	t_list	*temp;
-
-	if (lst && new)
-	{
-		if (*lst)
-		{
-			temp = *lst;
-			while (temp->next)
-				temp = temp->next;
-			temp->next = new;
-		}
-		else
-			*lst = new;
-	}
+    t_list *node;
+    while (head)
+    {
+        node = head;
+        head = head->next;
+        free(node);
+    }
 }

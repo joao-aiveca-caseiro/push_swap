@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 18:35:18 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/01/18 22:36:02 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/01/20 19:25:33 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,14 @@ void	swap_pswap(t_list **a, t_list **b, char c)
 
 void	push_pswap(t_list **src, t_list **dest, char c)
 {
+	t_list	*temp;
+
 	if (*src)
 	{
 		ft_lstadd_front(dest, ft_lstnew((*src)->content, (*src)->index));
+		temp = *src;
 		*src = (*src)->next;
+		ft_lstdelone(temp, NULL);
 		ft_printf("p%c\n", c);
 	}
 }

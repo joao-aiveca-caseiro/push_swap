@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 12:23:03 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/01/19 17:24:17 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/01/21 05:19:04 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	rotate_optimizer_pswap(t_list **a, t_list **b, t_list **instr);
 void	revrotate_optimizer_pswap(t_list **a, t_list **b, t_list **instr);
 void	temp_lstadd_back(t_list **lst, t_list *new);
 t_list	*lstcpy_pswap(t_list *source);
+void	temp_lstclear_pswap(t_list *head);
 
 
 #endif
