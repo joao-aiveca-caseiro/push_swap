@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 12:23:03 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/01/22 05:38:35 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/01/22 13:29:09 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,9 @@ int		find_index_below(t_list **b, int i);
 int		find_max_index(t_list **b);
 int		last_in_chunk_pos(t_list **a, int chunk_top, int k);
 int		first_in_chunk_pos(t_list **a, int chunk_top, int k);
+void	from_a_to_b(t_list **a, t_list **b, t_list **instr, int chunk_size);
+void	rot_b_before_push(t_list **a, t_list **b, t_list **instr);
+int		arg_checking_pswap(char *arg, t_list **a);
 
 
 #endif
