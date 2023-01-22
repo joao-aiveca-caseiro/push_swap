@@ -4,7 +4,8 @@ SRCS	= push_swap.c\
 		 instructions.c\
 		 sort_small.c\
 		 temp_instructions.c\
-		 sort_medium_big.c\
+		 sort_big.c\
+		 sort_big_utils.c\
 		 utils.c\
 		 optimizer.c
 OBJS		= ${SRCS:.c=.o}

@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 12:44:45 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/01/21 05:26:36 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/01/22 05:39:22 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,11 @@ void	sort_pswap(t_list **a, t_list **b, t_list **instr)
 		sort_upto5_pswap(a, b);
 	else if (i > 5)
 	{
-		temp_sort_big_pswap(&temp_a, &temp_b, instr);
+		sort_big_pswap(&temp_a, &temp_b, instr);
 		optimizer_pswap(a, b, instr);
 	}
 	ft_lstclear(a);
 	ft_lstclear(b);
-	temp_lstclear_pswap(temp_a);
-	temp_lstclear_pswap(temp_b);
 }
 
 int	main(int argc, char **argv)

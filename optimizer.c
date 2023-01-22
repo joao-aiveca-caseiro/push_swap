@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 14:31:59 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/01/21 04:50:07 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/01/22 01:19:26 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@ void	optimizer_pswap(t_list **a, t_list **b, t_list **instr)
 {
 	while (*instr)
 	{
-		if ((*instr)->content == 2 && (*instr)->next && (*instr)->next->content == 1)
-			(*instr) = (*instr)->next;
+		if ((*instr)->content == 2
+			&& (*instr)->next && (*instr)->next->content == 1)
+			to_next_and_delete_curr(instr);
 		else if ((*instr)->content == 1)
 			push_pswap(b, a, 'a');
 		else if ((*instr)->content == 2)
@@ -27,91 +28,90 @@ void	optimizer_pswap(t_list **a, t_list **b, t_list **instr)
 		else if ((*instr)->content == 6)
 			revrotate_pswap(b, a, 'b');
 		else if ((*instr)->content == 3)
-			rotate_optimizer_pswap(a, b, instr);
+			rotate_optimizer_pswap(a, b, instr, 3);
 		else if ((*instr)->content == 5)
-			revrotate_optimizer_pswap(a, b, instr);
-		*instr = (*instr)->next;
+			rotate_optimizer_pswap(a, b, instr, 5);
+		to_next_and_delete_curr(instr);
 	}
 }
 
-void	rotate_optimizer_pswap(t_list **a, t_list **b, t_list **instr)
+void	to_next_and_delete_curr(t_list **instr)
+{
+	t_list	*temp;
+
+	temp = *instr;
+	*instr = (*instr)->next;
+	ft_lstdelone(temp, NULL);
+}
+
+void	rotate_optimizer_pswap(t_list **a, t_list **b, t_list **instr, int move)
 {
 	int	i;
 	int	j;
 
 	i = 1;
 	j = 0;
-	if ((*instr)->content == 3)
+	if ((*instr)->content == move)
 	{
-		while ((*instr)->next && (*instr)->next->content == 3)
+		while ((*instr)->next && (*instr)->next->content == move)
 		{
-			*instr = (*instr)->next;
+			to_next_and_delete_curr(instr);
 			i++;
 		}
-		while ((*instr)->next && (*instr)->next->content == 4)
+		while ((*instr)->next && (*instr)->next->content == move + 1)
 		{
-			*instr = (*instr)->next;
+			to_next_and_delete_curr(instr);
 			j++;
 		}
-		while (i > 0 || j > 0)
+	}
+	if (move == 3)
+		r_optimized_pswap(a, b, i, j);
+	else if (move == 5)
+		revr_optimized_pswap(a, b, i, j);
+}
+
+void	r_optimized_pswap(t_list **a, t_list **b, int i, int j)
+{
+	while (i > 0 || j > 0)
+	{
+		if (i > 0 && j > 0)
 		{
-			if (i > 0 && j > 0)
-			{
-				rotate_pswap(a, b, 'r');
-				j--;
-				i--;
-			}
-			else if (i > 0 && j <= 0)
-			{
-				rotate_pswap(a, b, 'a');
-				i--;
-			}
-			else if (i <= 0 && j > 0)
-			{
-				rotate_pswap(b, a, 'b');
-				j--;
-			}
+			rotate_pswap(a, b, 'r');
+			j--;
+			i--;
+		}
+		else if (i > 0 && j <= 0)
+		{
+			rotate_pswap(a, b, 'a');
+			i--;
+		}
+		else if (i <= 0 && j > 0)
+		{
+			rotate_pswap(b, a, 'b');
+			j--;
 		}
 	}
 }
 
-void	revrotate_optimizer_pswap(t_list **a, t_list **b, t_list **instr)
+void	revr_optimized_pswap(t_list **a, t_list **b, int i, int j)
 {
-	int	i;
-	int	j;
-
-	i = 1;
-	j = 0;
-	if ((*instr)->content == 5)
+	while (i > 0 || j > 0)
 	{
-		while ((*instr)->next && (*instr)->next->content == 5)
+		if (i > 0 && j > 0)
 		{
-			*instr = (*instr)->next;
-			i++;
+			revrotate_pswap(a, b, 'r');
+			j--;
+			i--;
 		}
-		while ((*instr)->next && (*instr)->next->content == 6)
+		else if (i > 0 && j <= 0)
 		{
-			*instr = (*instr)->next;
-			j++;
+			revrotate_pswap(a, b, 'a');
+			i--;
 		}
-		while (i > 0 || j > 0)
+		else if (i <= 0 && j > 0)
 		{
-			if (i > 0 && j > 0)
-			{
-				revrotate_pswap(a, b, 'r');
-				j--;
-				i--;
-			}
-			else if (i > 0 && j <= 0)
-			{
-				revrotate_pswap(a, b, 'a');
-				i--;
-			}
-			else if (i <= 0 && j > 0)
-			{
-				revrotate_pswap(b, a, 'b');
-				j--;
-			}
+			revrotate_pswap(b, a, 'b');
+			j--;
 		}
 	}
 }

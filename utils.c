@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 18:34:58 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/01/21 05:18:46 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/01/22 03:42:23 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ void	to_top(t_list **a, t_list **b, int selected_index)
 	}
 }
 
-void temp_lstclear_pswap(t_list *head)
+/*void temp_lstclear_pswap(t_list *head)
 {
     t_list *node;
     while (head)
@@ -166,4 +166,14 @@ void temp_lstclear_pswap(t_list *head)
         head = head->next;
         free(node);
     }
+}*/
+
+void temp_lstclear_pswap(t_list **stack)
+{
+    while (*stack)
+    {
+		dellast_pswap(*stack);
+    }
+	stack = NULL;
+
 }

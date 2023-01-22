@@ -6,21 +6,19 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 18:35:18 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/01/21 03:12:37 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/01/22 01:38:49 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-/* 
-"Codes" passed to the instructions list:
+/*	"Codes" passed to the instructions list:
 	pa - 1 
 	pb - 2
 	ra - 3
 	rb - 4
 	rra - 5
-	rrb - 6
-*/
+	rrb - 6 */
 
 void	temp_push_pswap(t_list **src, t_list **dest, char c, t_list **instr)
 {
@@ -41,22 +39,21 @@ void	temp_push_pswap(t_list **src, t_list **dest, char c, t_list **instr)
 
 void	temp_rotate_pswap(t_list **a, t_list **b, char c, t_list **instr)
 {
-	t_list	*temp_a;
-	t_list	*temp_b;
+	t_list	*temp;
 
 	if (*a)
 	{
 		ft_lstadd_back(a, ft_lstnew((*a)->content, (*a)->index));
-		temp_a = *a;
+		temp = *a;
 		*a = (*a)->next;
-		ft_lstdelone(temp_a, NULL);
+		ft_lstdelone(temp, NULL);
 	}
 	if (*b && c == 'r')
 	{
 		ft_lstadd_back(b, ft_lstnew((*b)->content, (*b)->index));
-		temp_b = *b;
+		temp = *b;
 		*b = (*b)->next;
-		ft_lstdelone(temp_b, NULL);
+		ft_lstdelone(temp, NULL);
 	}
 	if (c == 'a')
 		ft_lstadd_back(instr, ft_lstnew(3, 0));
