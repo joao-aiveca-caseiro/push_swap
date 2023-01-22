@@ -6,24 +6,11 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 00:36:00 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/01/19 16:11:35 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/01/22 18:34:40 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-/*void	ft_lstadd_back(t_list **lst, t_list *new)
-{
-	t_list	*last;
-
-	if (*lst == NULL)
-		*lst = new;
-	else
-	{
-		last = ft_lstlast(*lst);
-		last->next = new;
-	}
-}*/
 
 void	ft_lstadd_back(t_list **lst, t_list *new)
 {

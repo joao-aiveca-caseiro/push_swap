@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 12:44:45 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/01/22 17:50:40 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/01/22 18:33:40 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,39 +77,3 @@ int	main(int argc, char **argv)
 		sort_pswap(&a, &b, &instr);
 	}
 }
-
-/*int	main(int argc, char **argv)
-{
-	int		n;
-	int		i;
-	t_list	*a;
-	t_list	*b;
-	t_list	*instr;
-
-	a = NULL;
-	b = NULL;
-	instr = NULL;
-	i = 1;
-	if (argc >= 2)
-	{
-		while (argv[i])
-		{
-			if (check_int_pswap(argv[i]) == 1)
-			{
-				n = atoi_pswap(argv[i]);
-				if (arg_checking_pswap(argv[i], &a) == 1)
-					ft_lstadd_back(&a, ft_lstnew(n, 0));
-				else
-					write (2, "Error\n", 6);
-			}
-			else
-			{
-				write (2, "Error\n", 6);
-				break ;
-			}
-			i++;
-		}
-		sort_pswap(&a, &b, &instr);
-	}
-	return (0);
-}*/
