@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 18:35:18 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/01/20 19:25:33 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/01/22 18:13:15 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,14 @@ void	revrotate_pswap(t_list **a, t_list **b, char c)
 {
 	if (*a)
 	{
-		ft_lstadd_front(a, ft_lstnew(ft_lstlast(*a)->content, ft_lstlast(*a)->index));
+		ft_lstadd_front(a, \
+		ft_lstnew(ft_lstlast(*a)->content, ft_lstlast(*a)->index));
 		dellast_pswap(*a);
 	}
 	if (*b && c == 'r')
 	{
-		ft_lstadd_front(b, ft_lstnew(ft_lstlast(*b)->content, ft_lstlast(*b)->index));
+		ft_lstadd_front(b, \
+		ft_lstnew(ft_lstlast(*b)->content, ft_lstlast(*b)->index));
 		dellast_pswap(*b);
 	}
 	ft_printf("rr%c\n", c);

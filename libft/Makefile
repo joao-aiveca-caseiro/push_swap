@@ -13,7 +13,7 @@ SRCS = ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c\
 		get_next_line_utils.c
 OBJS = ${SRCS:.c=.o}
 NAME = libft.a
-CC = gcc
+CC = cc
 RM = rm -f
 CFLAGS = -Wall -Wextra -Werror
 LIBC = ar rcs

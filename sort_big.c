@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 18:35:04 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/01/22 13:29:53 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/01/22 18:07:40 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ void	from_a_to_b(t_list **a, t_list **b, t_list **instr, int chunk_size)
 
 	i = 0;
 	j = 1;
-
 	while (*a)
 	{
 		while (*a && i < chunk_size * j)
@@ -116,7 +115,6 @@ void	sort_big_pswap(t_list **a, t_list **b, t_list **instr)
 		chunk_size = 40;
 	if (check_if_sorted(a) == 0)
 	{
-
 		from_a_to_b(a, b, instr, chunk_size);
 		while (*b)
 			temp_push_pswap(b, a, 'a', instr);

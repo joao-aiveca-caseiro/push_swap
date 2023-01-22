@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 18:34:58 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/01/22 03:42:23 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/01/22 18:12:10 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,85 +95,4 @@ int	check_if_sorted(t_list **stack)
 			return (0);
 	}
 	return (1);
-}
-
-int	min_int_node(t_list **a)
-{
-	t_list	*temp;
-	int		min;
-
-	temp = *a;
-	min = temp->content;
-	while (temp)
-	{
-		if (temp->content < min)
-			min = temp->content;
-		temp = temp->next;
-	}
-	return (min);
-}
-
-void	min_to_head(t_list **a, t_list **b)
-{	
-	t_list	*temp;
-	int		min;
-	int		i;
-
-	temp = *a;
-	min = min_int_node(a);
-	i = 0;
-	while (temp->content != min)
-	{
-		i++;
-		temp = temp->next;
-	}
-	while ((*a)->content != min)
-	{
-		if (i < ft_lstsize(a) / 2)
-			rotate_pswap(a, b, 'a');
-		else
-			revrotate_pswap(a, b, 'a');
-	}
-}
-
-void	to_top(t_list **a, t_list **b, int selected_index)
-{	
-	t_list	*temp;
-	int		i;
-
-	temp = *b;
-	i = 0;
-	while (temp->index != selected_index)
-	{
-		i++;
-		temp = temp->next;
-	}
-	while ((*b)->index != selected_index)
-	{
-		if (i < ft_lstsize(b) / 2)
-			rotate_pswap(b, a, 'b');
-		else
-			revrotate_pswap(b, a, 'b');
-	}
-}
-
-/*void temp_lstclear_pswap(t_list *head)
-{
-    t_list *node;
-    while (head)
-    {
-        node = head;
-        head = head->next;
-        free(node);
-    }
-}*/
-
-void temp_lstclear_pswap(t_list **stack)
-{
-    while (*stack)
-    {
-		dellast_pswap(*stack);
-    }
-	stack = NULL;
-
 }

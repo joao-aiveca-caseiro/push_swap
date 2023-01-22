@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/09 12:44:45 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/01/22 14:19:51 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/01/22 17:50:40 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,26 +34,23 @@ void	sort_pswap(t_list **a, t_list **b, t_list **instr)
 	}
 	ft_lstclear(a);
 	ft_lstclear(b);
+	ft_lstclear(&temp_a);
 }
 
 int	arg_checking_pswap(char *arg, t_list **a)
 {
-	int	n;
+	long	n;
+	int		check;
 
-	if (check_int_pswap(arg) == 0)
-		return (0);
+	check = 0;
 	n = atoi_pswap(arg);
-	if (n < INT_MIN && n > INT_MAX)
-		return (0);
-	if (check_doubles_pswap(a, n) == 0)
-		return (0);
-	return (1);
-}
-
-void	input_error_pswap(void)
-{
-	write(2, "Error\n", 6);
-	exit (0);
+	if (check_int_pswap(arg) == 1)
+		check++;
+	if (n >= INT_MIN && n <= INT_MAX)
+		check++;
+	if (check_doubles_pswap(a, n) == 1)
+		check++;
+	return (check);
 }
 
 int	main(int argc, char **argv)
@@ -67,22 +64,18 @@ int	main(int argc, char **argv)
 	b = NULL;
 	instr = NULL;
 	i = 1;
-	if (argc >= 2)
+	if (argc > 1)
 	{
 		while (argv[i])
 		{
-			if (arg_checking_pswap(argv[i], &a) == 1)
+			if (arg_checking_pswap(argv[i], &a) == 3)
 				ft_lstadd_back(&a, ft_lstnew(atoi_pswap(argv[i]), 0));
 			else
 				input_error_pswap();
 			i++;
 		}
-		ft_printf("%i\n", i);
 		sort_pswap(&a, &b, &instr);
 	}
-	else
-		input_error_pswap();
-	return (0);
 }
 
 /*int	main(int argc, char **argv)
@@ -104,7 +97,7 @@ int	main(int argc, char **argv)
 			if (check_int_pswap(argv[i]) == 1)
 			{
 				n = atoi_pswap(argv[i]);
-				if (n >= INT_MIN && n <= INT_MAX && check_doubles_pswap(&a, n) == 1)
+				if (arg_checking_pswap(argv[i], &a) == 1)
 					ft_lstadd_back(&a, ft_lstnew(n, 0));
 				else
 					write (2, "Error\n", 6);

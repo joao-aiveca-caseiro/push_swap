@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 18:48:41 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/01/09 18:52:13 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/01/22 18:06:40 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,16 @@ int	check_int_pswap(char *str)
 	check = 0;
 	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
 		i++;
-	if (str[i] == '-')
+	if (str[i] == '\0')
+		check--;
+	if (str[i] == '-' && ft_strlen(str) > 1)
 		i++;
-	else if (str[i] == '+')
+	else if (str[i] == '+' && ft_strlen(str) > 1)
 		i++;
 	while (str[i] >= '0' && str[i] <= '9')
 		i++;
 	if (str[i] == '\0')
-		check = 1;
+		check++;
 	return (check);
 }
 
@@ -71,4 +73,10 @@ int	check_doubles_pswap(t_list **stack, int curr)
 		temp = temp->next;
 	}
 	return (1);
+}
+
+void	input_error_pswap(void)
+{
+	write(2, "Error\n", 6);
+	exit (0);
 }

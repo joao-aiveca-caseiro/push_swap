@@ -6,7 +6,7 @@
 /*   By: jaiveca- <jaiveca-@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 04:03:51 by jaiveca-          #+#    #+#             */
-/*   Updated: 2023/01/22 05:33:24 by jaiveca-         ###   ########.fr       */
+/*   Updated: 2023/01/22 17:52:13 by jaiveca-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	find_index_below(t_list **b, int i)
 	int		selected;
 
 	temp = *b;
+	selected = -1;
 	while (temp)
 	{
 		while (temp->next && i - 1 != temp->index)
@@ -90,4 +91,3 @@ int	first_in_chunk_pos(t_list **a, int chunk_top, int k)
 	}
 	return (pos_first);
 }
-

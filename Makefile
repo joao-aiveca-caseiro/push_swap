@@ -3,6 +3,7 @@ SRCS	= push_swap.c\
 		 arg_checking.c\
 		 instructions.c\
 		 sort_small.c\
+		 sort_small_utils.c\
 		 temp_instructions.c\
 		 sort_big.c\
 		 sort_big_utils.c\
@@ -11,7 +12,7 @@ SRCS	= push_swap.c\
 OBJS		= ${SRCS:.c=.o}
 NAME		= push_swap
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -fsanitize=address
+CFLAGS		= -Wall -Wextra -Werror
 
 .c.o:
 			${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
